@@ -23,3 +23,16 @@ Your work will be evaluated against the following criteria:
 - Efficiency of the implementation
 - Design choices and overall code organization
 - Code quality and best practices
+
+Requirements
+- Java 8
+- Maven 3
+
+Running the Program
+- To run from command line compime and execute Application.main()
+- Input on terminal  [94133,94133] [94200,94299] [94226,94399]
+- Output onterminal  [94133,94133][94200,94399]
+
+Running the test
+- Go to com>amolzore>nisum>codingtest>service
+- Run the ZipCodeRangeServiceTest java file
