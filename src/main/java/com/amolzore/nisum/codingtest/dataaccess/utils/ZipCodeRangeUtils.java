@@ -10,6 +10,7 @@ import lombok.NonNull;
 import static java.util.stream.Collectors.toList;
 
 public class ZipCodeRangeUtils {
+    final private static String ZIP_CODE_REGEX = "\\[\\d{5},\\d{5}\\]";
     /**
      * parse the input list of zip code range (string) one by one using stream
      * 1. Validate the zip code range with their length and as pattern i.e length should be equal to 5 and pattern should be like [XXXXX,XXXXX].
@@ -46,7 +47,7 @@ public class ZipCodeRangeUtils {
      */
     @NonNull
     public static boolean isValidZipCodeRange(final String zipCodeRange) {
-        return ((Pattern.compile("\\[\\d{5},\\d{5}\\]")).matcher(zipCodeRange)).matches();
+        return ((Pattern.compile(ZIP_CODE_REGEX)).matcher(zipCodeRange)).matches();
     }
 
     /**
