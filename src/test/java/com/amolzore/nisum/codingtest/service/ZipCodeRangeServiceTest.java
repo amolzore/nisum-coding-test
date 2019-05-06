@@ -7,8 +7,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @RunWith(PowerMockRunner.class)
@@ -134,6 +139,72 @@ public class ZipCodeRangeServiceTest {
         actualRanges.add("[94200,94399]");
 
         Assert.assertEquals(expectedZipCodeString(actualRanges),actualZipCodeString(zipCodeRangeService.getUinqueMiniumNumberOfRanges(ranges)));
+    }
+
+    @Test
+    public void testGetUinqueMiniumNumberOfRangesWithOneHundredThousandZipCodeRange() throws InterruptedException, IOException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("zip-code-range-one-hundred-thousand.txt").getFile());
+        String content = new String(Files.readAllBytes(file.toPath()));
+        List ranges = new ArrayList();
+        Scanner input = new Scanner(content);
+        while (input.hasNext()) {
+            ranges.add(input.next());
+        }
+
+        long startTime = System.nanoTime();
+
+        zipCodeRangeService.getUinqueMiniumNumberOfRanges(ranges);
+
+        long endTime = System.nanoTime();
+        long timeElapsed = endTime - startTime;
+
+        System.out.println("Execution time in milliseconds : " + timeElapsed / 1000000);
+        Assert.assertNotNull(timeElapsed);
+    }
+
+    @Test
+    public void testGetUinqueMiniumNumberOfRangesWithOneHundredThousandCorrectPatternZipCodeRange() throws InterruptedException, IOException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("zip-code-range-one-hundred-thousand-correct-pattern.txt").getFile());
+        String content = new String(Files.readAllBytes(file.toPath()));
+        List ranges = new ArrayList();
+        Scanner input = new Scanner(content);
+        while (input.hasNext()) {
+            ranges.add(input.next());
+        }
+
+        long startTime = System.nanoTime();
+
+        zipCodeRangeService.getUinqueMiniumNumberOfRanges(ranges);
+
+        long endTime = System.nanoTime();
+        long timeElapsed = endTime - startTime;
+
+        System.out.println("Execution time in milliseconds : " + timeElapsed / 1000000);
+        Assert.assertNotNull(timeElapsed);
+    }
+
+    @Test
+    public void testGetUinqueMiniumNumberOfRangesWithOneMillionZipCodeRange() throws InterruptedException, IOException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("zip-code-range-one-million.txt").getFile());
+        String content = new String(Files.readAllBytes(file.toPath()));
+        List ranges = new ArrayList();
+        Scanner input = new Scanner(content);
+        while (input.hasNext()) {
+            ranges.add(input.next());
+        }
+
+        long startTime = System.nanoTime();
+
+        zipCodeRangeService.getUinqueMiniumNumberOfRanges(ranges);
+
+        long endTime = System.nanoTime();
+        long timeElapsed = endTime - startTime;
+
+        System.out.println("Execution time in milliseconds : " + timeElapsed / 1000000);
+        Assert.assertNotNull(timeElapsed);
     }
 
     private String actualZipCodeString(List<ZipCodeRange> ranges) {
