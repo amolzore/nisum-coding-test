@@ -2,9 +2,12 @@ package com.amolzore.nisum.codingtest.dataaccess.utils;
 
 import com.amolzore.nisum.codingtest.dataaccess.model.ZipCodeRange;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 import lombok.NonNull;
 
 import static java.util.stream.Collectors.toList;
@@ -21,10 +24,11 @@ public class ZipCodeRangeUtils {
      * @return List<ZipCodeRange> zipCodeRanges;
      */
     @NonNull
-    public static List<ZipCodeRange> parseZipCodeRange(final List<String> zipCodeRanges) {
+    public static List<ZipCodeRange> parseZipCodeRange(final List<String> zipCodeRanges) throws IllegalArgumentException {
+        final List invlaidZipCodeRange = new ArrayList();
         final List<ZipCodeRange> collect = zipCodeRanges.stream()
                 .filter(Objects::nonNull)
-                .filter(zipCodeRange-> isValidZipCodeRange(zipCodeRange))
+                .filter(zipCodeRange-> isValidZipCodeRange(zipCodeRange,invlaidZipCodeRange))
                 .map(zipCodeRange -> {
                     final String range[] = zipCodeRange.replace("[", "").replace("]", "").split(",");
                     int lowerLimit = Integer.parseInt(range[0]);
@@ -37,6 +41,9 @@ public class ZipCodeRangeUtils {
                     }
                     return new ZipCodeRange(lowerLimit, upperLimit);
                 }).collect(toList());
+        if(invlaidZipCodeRange.size() > 0) {
+            throw new IllegalArgumentException("" + invlaidZipCodeRange.stream().collect(Collectors.joining(" ")));
+        }
         return collect;
     }
 
@@ -46,8 +53,11 @@ public class ZipCodeRangeUtils {
      * @return boolean [true|false]
      */
     @NonNull
-    public static boolean isValidZipCodeRange(final String zipCodeRange) {
-        return ((Pattern.compile(ZIP_CODE_REGEX)).matcher(zipCodeRange)).matches();
+    public static boolean isValidZipCodeRange(final String zipCodeRange,List invlaidZipCodeRange) {
+        boolean isValid = ((Pattern.compile(ZIP_CODE_REGEX)).matcher(zipCodeRange)).matches();
+        if(!isValid)
+            invlaidZipCodeRange.add(zipCodeRange);
+        return isValid;
     }
 
     /**
