@@ -29,7 +29,7 @@ public class ZipCodeRangeService {
      *      3.3.4 If condolidation did not happened then and current and next ZipCodeRange are not same then no operation required on ZipCodeRange
      *            only increment the current and next index by one.
      */
-    public List<ZipCodeRange> getUinqueMiniumNumberOfRanges(List<String> ranges) {
+    public List<ZipCodeRange> getUinqueMinimumNumberOfRanges(List<String> ranges) {
         List<ZipCodeRange> zipCodeRanges = ZipCodeRangeUtils.parseZipCodeRange(ranges);
         zipCodeRanges.sort(Comparator.comparing(ZipCodeRange::getLowerLimit));
         int currentIdx = 0;

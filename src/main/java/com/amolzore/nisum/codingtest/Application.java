@@ -7,12 +7,11 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Application Defination.
+ * Application demo to reduce the zipCodeRanges with quique and minium zip code ranges.
  *
  * @author :- Amol Zore
  */
 public class Application {
-
     public static void main(String[] args) {
         List zipCodeRangeList = new ArrayList();
         Scanner scanner = new Scanner(System.in);
@@ -21,9 +20,7 @@ public class Application {
             zipCodeRangeList.add(input.next());
         }
         scanner.close();
-
         ZipCodeRangeService zipCodeRangeService = new ZipCodeRangeService();
-        (zipCodeRangeService.getUinqueMiniumNumberOfRanges(zipCodeRangeList)).forEach(System.out::print);
-
+        (zipCodeRangeService.getUinqueMinimumNumberOfRanges(zipCodeRangeList)).forEach(System.out::print);
     }
 }

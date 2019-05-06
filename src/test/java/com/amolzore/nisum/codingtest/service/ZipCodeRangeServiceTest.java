@@ -13,7 +13,6 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @RunWith(PowerMockRunner.class)
@@ -23,16 +22,16 @@ public class ZipCodeRangeServiceTest {
     private ZipCodeRangeService zipCodeRangeService;
 
     @Test
-    public void testGetUinqueMiniumNumberOfRangesWithNoOverLapping() {
+    public void testGetUinqueMinimumNumberOfRangesWithNoOverLapping() {
         List ranges = new ArrayList();
         ranges.add("[94133,94133]");
         ranges.add("[94200,94299]");
         ranges.add("[94600,94699]");
-        Assert.assertEquals(expectedZipCodeString(ranges),actualZipCodeString(zipCodeRangeService.getUinqueMiniumNumberOfRanges(ranges)));
+        Assert.assertEquals(expectedZipCodeString(ranges),actualZipCodeString(zipCodeRangeService.getUinqueMinimumNumberOfRanges(ranges)));
     }
 
     @Test
-    public void testGetUinqueMiniumNumberOfRangesWithOverLapping() {
+    public void testGetUinqueMinimumNumberOfRangesWithOverLapping() {
         List ranges = new ArrayList();
         ranges.add("[94133,94133]");
         ranges.add("[94200,94299]");
@@ -42,11 +41,11 @@ public class ZipCodeRangeServiceTest {
         actualRanges.add("[94133,94133]");
         actualRanges.add("[94200,94399]");
 
-        Assert.assertEquals(expectedZipCodeString(actualRanges),actualZipCodeString(zipCodeRangeService.getUinqueMiniumNumberOfRanges(ranges)));
+        Assert.assertEquals(expectedZipCodeString(actualRanges),actualZipCodeString(zipCodeRangeService.getUinqueMinimumNumberOfRanges(ranges)));
     }
 
     @Test
-    public void testGetUinqueMiniumNumberOfRangesFromSameRanges() {
+    public void testGetUinqueMinimumNumberOfRangesFromSameRanges() {
         List ranges = new ArrayList();
         ranges.add("[44009,44009]");
         ranges.add("[44009,44009]");
@@ -54,11 +53,11 @@ public class ZipCodeRangeServiceTest {
         List actualRanges = new ArrayList();
         actualRanges.add("[44009,44009]");
 
-        Assert.assertEquals(expectedZipCodeString(actualRanges),actualZipCodeString(zipCodeRangeService.getUinqueMiniumNumberOfRanges(ranges)));
+        Assert.assertEquals(expectedZipCodeString(actualRanges),actualZipCodeString(zipCodeRangeService.getUinqueMinimumNumberOfRanges(ranges)));
     }
 
     @Test
-    public void testgetUinqueMiniumNumberOfRangesForOneUinqueRange() {
+    public void testgetUinqueMinimumNumberOfRangesForOneUinqueRange() {
         List ranges = new ArrayList();
         ranges.add("[44000,44000]");
         ranges.add("[55001,55099]");
@@ -67,11 +66,11 @@ public class ZipCodeRangeServiceTest {
         List actualRanges = new ArrayList();
         actualRanges.add("[33000,66000]");
 
-        Assert.assertEquals(expectedZipCodeString(actualRanges),actualZipCodeString(zipCodeRangeService.getUinqueMiniumNumberOfRanges(ranges)));
+        Assert.assertEquals(expectedZipCodeString(actualRanges),actualZipCodeString(zipCodeRangeService.getUinqueMinimumNumberOfRanges(ranges)));
     }
 
     @Test
-    public void testGetUinqueMiniumNumberOfRangesWithArbitraryRanges() {
+    public void testGetUinqueMinimumNumberOfRangesWithArbitraryRanges() {
         List ranges = new ArrayList();
         ranges.add("[44009,33009]");
         ranges.add("[32999,44999]");
@@ -83,11 +82,11 @@ public class ZipCodeRangeServiceTest {
         List actualRanges = new ArrayList();
         actualRanges.add("[30000,44999]");
 
-        Assert.assertEquals(expectedZipCodeString(actualRanges),actualZipCodeString(zipCodeRangeService.getUinqueMiniumNumberOfRanges(ranges)));
+        Assert.assertEquals(expectedZipCodeString(actualRanges),actualZipCodeString(zipCodeRangeService.getUinqueMinimumNumberOfRanges(ranges)));
     }
 
     @Test
-    public void testGetUinqueMiniumNumberOfRangesWithSpecialCharInZipCodeRanges() {
+    public void testGetUinqueMinimumNumberOfRangesWithSpecialCharInZipCodeRanges() {
         List ranges = new ArrayList();
         ranges.add("[94133,94133]");
         ranges.add("[94200,94299]");
@@ -99,11 +98,11 @@ public class ZipCodeRangeServiceTest {
         actualRanges.add("[94133,94133]");
         actualRanges.add("[94200,94399]");
 
-        Assert.assertEquals(expectedZipCodeString(actualRanges),actualZipCodeString(zipCodeRangeService.getUinqueMiniumNumberOfRanges(ranges)));
+        Assert.assertEquals(expectedZipCodeString(actualRanges),actualZipCodeString(zipCodeRangeService.getUinqueMinimumNumberOfRanges(ranges)));
     }
 
     @Test
-    public void testGetUinqueMiniumNumberOfRangesWithIncorrectLengthOfZipCodeRanges() {
+    public void testGetUinqueMinimumNumberOfRangesWithIncorrectLengthOfZipCodeRanges() {
         List ranges = new ArrayList();
         ranges.add("[94133,94133]");
         ranges.add("[94200,94299]");
@@ -117,11 +116,11 @@ public class ZipCodeRangeServiceTest {
         actualRanges.add("[94133,94133]");
         actualRanges.add("[94200,94399]");
 
-        Assert.assertEquals(expectedZipCodeString(actualRanges),actualZipCodeString(zipCodeRangeService.getUinqueMiniumNumberOfRanges(ranges)));
+        Assert.assertEquals(expectedZipCodeString(actualRanges),actualZipCodeString(zipCodeRangeService.getUinqueMinimumNumberOfRanges(ranges)));
     }
 
     @Test
-    public void testGetUinqueMiniumNumberOfRangesWithMixIncorrectZipCodes() {
+    public void testGetUinqueMinimumNumberOfRangesWithMixIncorrectZipCodes() {
         List ranges = new ArrayList();
         ranges.add("[94133,94133]");
         ranges.add("[94200,94299]");
@@ -138,11 +137,11 @@ public class ZipCodeRangeServiceTest {
         actualRanges.add("[94133,94133]");
         actualRanges.add("[94200,94399]");
 
-        Assert.assertEquals(expectedZipCodeString(actualRanges),actualZipCodeString(zipCodeRangeService.getUinqueMiniumNumberOfRanges(ranges)));
+        Assert.assertEquals(expectedZipCodeString(actualRanges),actualZipCodeString(zipCodeRangeService.getUinqueMinimumNumberOfRanges(ranges)));
     }
 
     @Test
-    public void testGetUinqueMiniumNumberOfRangesWithOneHundredThousandZipCodeRange() throws InterruptedException, IOException {
+    public void testGetUinqueMinimumNumberOfRangesWithOneHundredThousandZipCodeRange() throws InterruptedException, IOException {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("zip-code-range-one-hundred-thousand.txt").getFile());
         String content = new String(Files.readAllBytes(file.toPath()));
@@ -154,7 +153,7 @@ public class ZipCodeRangeServiceTest {
 
         long startTime = System.nanoTime();
 
-        zipCodeRangeService.getUinqueMiniumNumberOfRanges(ranges);
+        zipCodeRangeService.getUinqueMinimumNumberOfRanges(ranges);
 
         long endTime = System.nanoTime();
         long timeElapsed = endTime - startTime;
@@ -164,7 +163,7 @@ public class ZipCodeRangeServiceTest {
     }
 
     @Test
-    public void testGetUinqueMiniumNumberOfRangesWithOneHundredThousandCorrectPatternZipCodeRange() throws InterruptedException, IOException {
+    public void testGetUinqueMinimumNumberOfRangesWithOneHundredThousandCorrectPatternZipCodeRange() throws InterruptedException, IOException {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("zip-code-range-one-hundred-thousand-correct-pattern.txt").getFile());
         String content = new String(Files.readAllBytes(file.toPath()));
@@ -176,7 +175,7 @@ public class ZipCodeRangeServiceTest {
 
         long startTime = System.nanoTime();
 
-        zipCodeRangeService.getUinqueMiniumNumberOfRanges(ranges);
+        zipCodeRangeService.getUinqueMinimumNumberOfRanges(ranges);
 
         long endTime = System.nanoTime();
         long timeElapsed = endTime - startTime;
@@ -186,7 +185,7 @@ public class ZipCodeRangeServiceTest {
     }
 
     @Test
-    public void testGetUinqueMiniumNumberOfRangesWithOneMillionZipCodeRange() throws InterruptedException, IOException {
+    public void testGetUinqueMinimumNumberOfRangesWithOneMillionZipCodeRange() throws InterruptedException, IOException {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("zip-code-range-one-million.txt").getFile());
         String content = new String(Files.readAllBytes(file.toPath()));
@@ -198,7 +197,7 @@ public class ZipCodeRangeServiceTest {
 
         long startTime = System.nanoTime();
 
-        zipCodeRangeService.getUinqueMiniumNumberOfRanges(ranges);
+        zipCodeRangeService.getUinqueMinimumNumberOfRanges(ranges);
 
         long endTime = System.nanoTime();
         long timeElapsed = endTime - startTime;
