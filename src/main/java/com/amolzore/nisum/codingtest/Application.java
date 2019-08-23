@@ -9,7 +9,7 @@ import java.util.Scanner;
 /**
  * Application demo to reduce the zipCodeRanges with quique and minium zip code ranges.
  *
- * @author :- Amol Zore
+ * @author :- Amol Zore   
  */
 public class Application {
     public static void main(String[] args) {
